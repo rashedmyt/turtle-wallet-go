@@ -7,7 +7,7 @@ package walletdmanager
 
 const (
 	// DefaultTransferFee is the default fee. It is expressed in XCY
-	DefaultTransferFee float64 = 0.1
+	DefaultTransferFee float64 = 0.001
 
 	logWalletdCurrentSessionFilename     = "turtle-service-session.log"
 	logWalletdAllSessionsFilename        = "turtle-service.log"
