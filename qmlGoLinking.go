@@ -6,7 +6,7 @@
 package main
 
 import (
-	"TurtleCoin-Nest/walletdmanager"
+	"CyprusCoin-Nest/walletdmanager"
 
 	"github.com/atotto/clipboard"
 	_ "github.com/mattn/go-sqlite3"

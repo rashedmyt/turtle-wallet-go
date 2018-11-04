@@ -24,7 +24,7 @@ ApplicationWindow {
     minimumWidth: windowWidth
     minimumHeight: minWindowHeight
     color: "#333333"
-    title: "TurtleCoin Nest"
+    title: "CyprusCoin Nest"
     visible: true
 
     Flickable{

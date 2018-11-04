@@ -6,8 +6,8 @@
 package main
 
 import (
-	"TurtleCoin-Nest/turtlecoinwalletdrpcgo"
-	"TurtleCoin-Nest/walletdmanager"
+	"CyprusCoin-Nest/turtlecoinwalletdrpcgo"
+	"CyprusCoin-Nest/walletdmanager"
 	"encoding/csv"
 	"encoding/json"
 	"io"
@@ -45,7 +45,7 @@ var (
 	useCheckpoints              = true
 	displayFiatConversion       = false
 	stringBackupKeys            = ""
-	rateUSDTRTL                 float64 // USD value for 1 TRTL
+	rateUSDTRTL                 float64 // USD value for 1 XCY
 	customRemoteDaemonAddress   = defaultRemoteDaemonAddress
 	customRemoteDaemonPort      = defaultRemoteDaemonPort
 	limitDisplayedTransactions  = true
@@ -78,7 +78,7 @@ func main() {
 			log.Fatal(err)
 		}
 		pathToHomeDir = usr.HomeDir
-		pathToAppFolder := pathToHomeDir + "/Library/Application Support/TurtleCoin-Nest"
+		pathToAppFolder := pathToHomeDir + "/Library/Application Support/CyprusCoin-Nest"
 		os.Mkdir(pathToAppFolder, os.ModePerm)
 		pathToDB = pathToAppFolder + "/" + pathToDB
 
@@ -222,10 +222,10 @@ func getAndDisplayBalances() {
 
 	walletAvailableBalance, walletLockedBalance, walletTotalBalance, err := walletdmanager.RequestBalance()
 	if err == nil {
-		qmlBridge.DisplayAvailableBalance(humanize.FormatFloat("#,###.##", walletAvailableBalance))
-		qmlBridge.DisplayLockedBalance(humanize.FormatFloat("#,###.##", walletLockedBalance))
+		qmlBridge.DisplayAvailableBalance(humanize.FormatFloat("#,###.######", walletAvailableBalance))
+		qmlBridge.DisplayLockedBalance(humanize.FormatFloat("#,###.######", walletLockedBalance))
 		balanceUSD := walletTotalBalance * rateUSDTRTL
-		qmlBridge.DisplayTotalBalance(humanize.FormatFloat("#,###.##", walletTotalBalance), humanize.FormatFloat("#,###.##", balanceUSD))
+		qmlBridge.DisplayTotalBalance(humanize.FormatFloat("#,###.######", walletTotalBalance), humanize.FormatFloat("#,###.######", balanceUSD))
 	}
 }
 
@@ -314,7 +314,7 @@ func getAndDisplayListTransactions(forceFullUpdate bool) {
 					amountString += "- "
 					amountString += strconv.FormatFloat(-amount, 'f', -1, 64)
 				}
-				amountString += " TRTL (fee: " + strconv.FormatFloat(transfer.Fee, 'f', 2, 64) + ")"
+				amountString += " XCY (fee: " + strconv.FormatFloat(transfer.Fee, 'f', 2, 64) + ")"
 				confirmationsString := confirmationsStringRepresentation(transfer.Confirmations)
 				timeString := transfer.Timestamp.Format("2006-01-02 15:04:05")
 				transactionNumberString := strconv.Itoa(transactionNumber) + ")"
@@ -358,7 +358,7 @@ func transfer(transferAddress string, transferAmount string, transferPaymentID s
 	getAndDisplayBalances()
 	qmlBridge.ClearTransferAmount()
 	qmlBridge.FinishedSendingTransaction()
-	qmlBridge.DisplayPopup("TRTLs sent successfully", 4000)
+	qmlBridge.DisplayPopup("XCYs sent successfully", 4000)
 }
 
 func optimizeWalletWithFusion() {
@@ -491,12 +491,12 @@ func getFullBalanceAndDisplayInTransferAmount(transferFee string) {
 	if err != nil {
 		qmlBridge.DisplayErrorDialog("Error calculating full balance minus fee.", err.Error())
 	}
-	qmlBridge.DisplayFullBalanceInTransferAmount(humanize.FtoaWithDigits(availableBalance, 2))
+	qmlBridge.DisplayFullBalanceInTransferAmount(humanize.FtoaWithDigits(availableBalance, 6))
 }
 
 func getDefaultFeeAndDisplay() {
 
-	qmlBridge.DisplayDefaultFee(humanize.FtoaWithDigits(walletdmanager.DefaultTransferFee, 2))
+	qmlBridge.DisplayDefaultFee(humanize.FtoaWithDigits(walletdmanager.DefaultTransferFee, 6))
 }
 
 func getNodeFeeAndDisplay() {
@@ -505,7 +505,7 @@ func getNodeFeeAndDisplay() {
 	if err != nil {
 		qmlBridge.DisplayNodeFee("-")
 	} else {
-		qmlBridge.DisplayNodeFee(humanize.FtoaWithDigits(nodeFee, 2))
+		qmlBridge.DisplayNodeFee(humanize.FtoaWithDigits(nodeFee, 6))
 	}
 }
 
@@ -677,7 +677,7 @@ func getAndDisplayListRemoteNodes() {
 				} else {
 					nodeNameAndFee += humanize.FtoaWithDigits(feeAmount, 2)
 				}
-				nodeNameAndFee += " TRTL)"
+				nodeNameAndFee += " XCY)"
 				qmlBridge.ChangeTextRemoteNode(theIndex, nodeNameAndFee)
 			}()
 		}

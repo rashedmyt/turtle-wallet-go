@@ -476,7 +476,7 @@ Rectangle {
                 id: textInputCreateWalletFilename
                 anchors.fill: parent
                 color: "#cfcfcf"
-                text: "myFirstTRTLWallet"
+                text: "myFirstXCYWallet"
                 rightPadding: 5
                 leftPadding: 5
                 selectionColor: "#eeeeee"
@@ -738,7 +738,7 @@ Rectangle {
                 id: textInputImportWalletFilename
                 anchors.fill: parent
                 color: "#cfcfcf"
-                text: "myTRTLWallet"
+                text: "myXCYWallet"
                 rightPadding: 5
                 leftPadding: 5
                 selectionColor: "#eeeeee"
